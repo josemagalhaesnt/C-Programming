@@ -9,18 +9,18 @@ typedef struct {
   int idade;
 } Pessoa;
 
-bool fazRequisito(Pessoa* p);
+bool fazRequisito(Pessoa *p);
 
 int main(void) {
-
   Pessoa *p = (Pessoa*) malloc(sizeof(Pessoa));
 
   printf("Qual o seu sexo ?\n");
-  scanf("%s", p->sexo);
+  fgets(p->sexo, sizeof(p->sexo), stdin);
 
   if (fazRequisito(p) == true) {
+      getchar();
       printf("Qual o seu nome ? \n");
-      scanf("%s", p->nome);
+      fgets(p->nome, sizeof(p->nome),stdin);
       printf("Ola, %s ! Quantos anos voce tem? \n", p->nome);
       scanf("%d", &p->idade);
   }
@@ -31,15 +31,22 @@ int main(void) {
   return 0;
 }
 
-bool fazRequisito(Pessoa* p){
+bool fazRequisito(Pessoa *p){
 
-    if (strcmp(p->sexo,"M") == true) {
-       printf("Parabens, voce fez o requisito");
+  int check1 = strncmp(p->sexo,"M", strlen(p->sexo));
+  int check2 = strncmp(p->sexo,"Masculino", strlen(p->sexo));
+
+  printf("%d \n", check1);
+  printf("%d \n", check2);
+
+    if (check1 == 0 || check2 == 0){
+
+       printf("Parabens, voce fez o requisito \n");
        return true;
     }
 
     else {
-        printf("Sai hetero!");
+        printf("Sai racha, quero piroca \n");
         return false;
     }
 }
